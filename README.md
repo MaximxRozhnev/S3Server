@@ -8,6 +8,7 @@
 
 S3Server is a PHP application for uploading, storing, and managing medical examination and conclusion files using Amazon S3 cloud storage.
 
+The bucket is created manually in S3!
 ### 🚀 Features
 - 🔹 User authentication (`auth.php`, `login.php`, `logout.php`)
 - 🔹 File uploading with chunked transfer (`upload_chunk.php`, `upload_to_s3.php`)
@@ -35,6 +36,7 @@ cd S3Server
 
 S3Server — это PHP-приложение для загрузки, хранения и управления файлами медицинских обследований и заключений с использованием облачного хранилища Amazon S3.
 
+Бакет создаётся в S3 вручную!
 ## 🚀 Функции
 
 - 🔹 Аутентификация пользователей (`auth.php`, `login.php`, `logout.php`)

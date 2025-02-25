@@ -1,0 +1,35 @@
+/* Стили для спойлеров */
+.examination-details {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Заголовок спойлера */
+.examination-details summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Стили для обследований с заключением */
+.examination-details summary.has-conclusion {
+    color: green;
+}
+
+.examination-details summary.has-conclusion .conclusion-indicator {
+    color: green;
+    font-size: 1.2em;
+    margin-left: 5px;
+}
+
+/* Стили для обследований без заключения */
+.examination-details summary.no-conclusion {
+    color: red;
+}
+
+/* Убираем стандартные стрелки */
+.examination-details summary::-webkit-details-marker {
+    display: none;
+}

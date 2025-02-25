@@ -1,0 +1,45 @@
+/* Контейнер для текста с подсказкой */
+.hint-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Стиль для подсказки */
+.hint {
+    visibility: hidden; /* Скрываем подсказку по умолчанию */
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    text-align: center; /* Выравнивание текста */
+    padding: 8px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 50%; /* Центрируем по вертикали */
+    left: 110%; /* Располагаем справа от текста */
+    transform: translateY(-50%);
+    width: 150px; /* Уже по ширине */
+    height: auto; /* Позволяет высоте адаптироваться */
+    max-height: 200px; /* Ограничиваем максимальную высоту */
+    white-space: normal; /* Разрешаем перенос текста */
+    opacity: 0; /* Прозрачность по умолчанию */
+    transition: opacity 0.3s; /* Анимация появления */
+}
+
+/* Треугольник-указатель */
+.hint::after {
+    content: '';
+    position: absolute;
+    top: 50%; /* Центрируем по вертикали */
+    left: -6px; /* Располагаем треугольник слева от подсказки */
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent; /* Треугольник указывает на текст */
+}
+
+/* Показываем подсказку при наведении */
+.hint-container:hover .hint {
+    visibility: visible;
+    opacity: 1;
+}

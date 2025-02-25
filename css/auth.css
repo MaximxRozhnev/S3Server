@@ -1,0 +1,72 @@
+/* Общий стиль для фона */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #a8d0e6; /* Нежный голубой оттенок */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Контейнер формы */
+.auth-container {
+    background-color: #ffffff; /* Белый фон контейнера */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 340px; /* Фиксированная ширина контейнера */
+    box-sizing: border-box; /* Учитывать padding в общей ширине */
+}
+
+/* Ошибка */
+.error-message {
+    color: #e74c3c; /* Красный цвет ошибки */
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Заголовок формы */
+.auth-form h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #34495e;
+}
+
+/* Поля ввода */
+.auth-form input {
+    width: calc(100% - 20px); /* Поля занимают всю ширину контейнера с небольшими отступами */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccd1d9;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box; /* Учитывать padding в общей ширине */
+}
+
+/* Кнопка */
+.auth-form button {
+    width: calc(100% - 20px); /* Совпадает с шириной полей */
+    padding: 10px;
+    background-color: #3498db; /* Голубой цвет кнопки */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box; /* Учитывать padding в общей ширине */
+}
+
+.auth-form button:hover {
+    background-color: #2980b9; /* Тёмно-голубой оттенок при наведении */
+}
+
+/* Для устранения неровностей */
+.auth-form input, 
+.auth-form button {
+    margin: 10px auto; /* Центрирование внутри формы */
+    display: block;
+}

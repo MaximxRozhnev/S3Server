@@ -1,0 +1,466 @@
+body {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px; /* Вы можете изменить размер для увеличения */
+
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 20px;
+}
+
+/* [ Левый контейнер ] */
+.left-panel {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ddd; /* Обводка */
+    border-radius: 8px;
+}
+
+.left-panel button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Кнопки занимают всю ширину контейнера */
+    box-sizing: border-box; /* Учитываем отступы и границы */
+}
+.left-panel button:hover {
+    background-color: #45a049;
+}
+
+.left-panel input, .left-panel select {
+    padding: 8px;
+    width: 100%; /* Поля ввода занимают всю ширину контейнера */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.left-panel .filter-block {
+    margin-top: 30px;
+}
+.left-panel .filter-block input, .filter-block select {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* (Кнопки для фильтров и поиска) */
+.left-panel .filter-button {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.left-panel .filter-button:hover {
+    background-color: #1e88e5;
+}
+
+
+/* [ Правый контейнер ] */
+.right-panel {
+    flex-grow: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    overflow-y: auto;
+    margin-left: 20px;
+    border: 2px solid #ddd; /* Обводка */
+    border-radius: 8px;
+}
+
+#refreshButton {
+    background-color: #4CAF50; /* Зеленый цвет */
+    color: white; /* Белый цвет текста */
+    border: none; /* Убираем стандартные границы */
+    border-radius: 5px; /* Скругление углов */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    font-size: 16px; /* Размер текста */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    transition: all 0.3s ease; /* Плавный переход для всех изменений */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+#refreshButton:hover {
+    background-color: #45a049; /* Темно-зеленый цвет при наведении */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Усиление тени */
+}
+
+.patient-list {
+    max-height: 600px; /* Ограничение высоты списка */
+    overflow-y: auto; /* Добавляем вертикальный скроллбар */
+    border: 1px solid #ccc; /* Рамка вокруг списка для визуального разделения */
+    padding: 10px; /* Внутренние отступы для удобства чтения */
+    margin: 10px 0; /* Внешние отступы */
+    border-radius: 5px; /* Скругленные углы */
+    background-color: #f9f9f9; /* Цвет фона списка */
+}
+
+/* Стили для скроллбара */
+.patient-list::-webkit-scrollbar {
+    width: 8px; /* Ширина скроллбара */
+}
+
+.patient-list::-webkit-scrollbar-thumb {
+    background-color: #888; /* Цвет ползунка */
+    border-radius: 4px; /* Скругленные углы ползунка */
+}
+
+.patient-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Цвет ползунка при наведении */
+}
+
+.patient-list::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Цвет дорожки скроллбара */
+}
+
+
+.patient-item {
+    background-color: white;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Центрируем элементы по вертикали */
+    justify-content: space-between;
+    gap: 15px;
+    min-height: 40px;
+}
+
+.patient-name {
+    flex: 1;
+    text-align: left;
+}
+
+.patient-date {
+    flex: 1 120px; /* Фиксированная ширина */
+    text-align: center;
+}
+
+.patient-status {
+    flex: 1 60px;
+    text-align: right;
+    font-weight: bold;
+}
+
+
+
+/* Модальные окна */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    text-align: center;
+    width: 100%;
+}
+
+
+#examModal .modal-content{
+    max-width: 1000px;
+}
+
+.close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal select {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.modal-content input {
+    width: calc(100% - 20px); /* Делаем ширину на 100%, но с учетом отступов */
+    margin: 10px 0; /* Отступ сверху и снизу */
+    padding: 10px; /* Внутренний отступ */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 5px; /* Скругленные углы */
+    display: block; /* Блочный элемент для корректного выравнивания */
+}
+
+.modal button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modal button:hover {
+    background-color: #45a049;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Расстояние между кнопками */
+    margin-top: 10px;
+}
+
+#cancelPatientModal, #openPatientModalAddDoctorsButton,
+#backPatientButton, #savePatientButton,
+#cancelExaminationModal, #saveExaminationButton,
+#cancelConclusionModal, #saveConclusionModal{
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    
+}
+
+#cancelPatientModal, #backPatientButton,
+#cancelExaminationModal, #cancelConclusionModal  {
+    background-color: #ccc;
+}
+
+#cancelPatientModal:hover, #backPatientButton:hover,
+#cancelExaminationModal:hover, #cancelConclusionModal:hover {
+    background-color: #b3b3b3;
+}
+
+#progressOverlay {
+    position: fixed; /* Фиксируем прогресс-бар поверх страницы */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center; /* Выравниваем по центру по горизонтали */
+    align-items: center; /* Выравниваем по центру по вертикали */
+    z-index: 9999; /* Обеспечиваем, чтобы прогресс-бар был поверх всех других элементов */
+}
+
+#progressContainer {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px; /* Ширина прогресс-бара */
+}
+
+#progress {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#progressText {
+    margin-top: 10px;
+}
+
+
+/* Стили для чекбоксов */
+.doctor-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+}
+
+#doctorCheckboxList input[type="checkbox"] {
+    transform: scale(1.2); /* Увеличить чекбокс */
+    cursor: pointer;
+    width: auto;
+}
+
+.doctor-checkbox label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.pagination-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    border: none;
+    background: #fff;
+    padding: 4px 12px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.pagination-button:hover {
+    background: #e0e0e0;
+}
+
+.pagination-button.active {
+    background: #4285f4;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination-button:disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+
+.examination-details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+summary:hover {
+    background: #eef5ff;
+}
+
+.conclusion-indicator {
+    color: #198754;
+    font-weight: bold;
+}
+
+.has-conclusion summary {
+    color: #198754;
+}
+
+.no-conclusion summary {
+    color: #dc3545;
+}
+
+.date {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+p {
+    margin: 5px 0 0;
+    font-size: 0.95em;
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    background: #4CAF50;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.mode-info {
+    display: flex;
+    align-items: center;
+    background: #e3f2fd; /* Голубой фон */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+    margin-top: 15px;
+}
+
+.mode-icon {
+    width: 40px;
+    height: 40px;
+    background: #2196F3; /* Синий цвет */
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.mode-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+

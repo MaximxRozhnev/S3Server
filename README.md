@@ -1,4 +1,6 @@
-![image](https://github.com/user-attachments/assets/86eb7ffd-8dcf-478b-9f9e-db48019f1a0c)# S3Server
+![image](https://github.com/user-attachments/assets/6596f7f2-e735-49ff-a543-fdee1c814072)
+
+# S3Server
 
 ## 🇬🇧 English | 🇷🇺 Русский
 
@@ -65,7 +67,7 @@ S3Server — это PHP-приложение для загрузки, хране
 ```sh
 git clone https://github.com/MaximxRozhnev/S3Server.git
 cd S3Server
+```
+![image](https://github.com/user-attachments/assets/f3e3b023-4d04-456d-ac7a-e2e78804c895)
 
-
-![image](https://github.com/user-attachments/assets/a5b66592-422b-4726-8bd3-aaa5f27a5080)
 

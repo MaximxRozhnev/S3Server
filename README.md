@@ -1,4 +1,4 @@
-# S3Server
+![image](https://github.com/user-attachments/assets/86eb7ffd-8dcf-478b-9f9e-db48019f1a0c)# S3Server
 
 ## 🇬🇧 English | 🇷🇺 Русский
 
@@ -7,6 +7,10 @@
 ## 🌍 English Version
 
 S3Server is a PHP application for uploading, storing, and managing medical examination and conclusion files using Amazon S3 cloud storage.
+You need to set up an email address to send the authorization code.
+![image](https://github.com/user-attachments/assets/72e8052f-9baa-4aa1-8b01-12c024595db1)
+
+
 
 The bucket is created manually in S3!
 ### 🚀 Features
@@ -35,7 +39,8 @@ cd S3Server
 ## 🌍 Русская версия
 
 S3Server — это PHP-приложение для загрузки, хранения и управления файлами медицинских обследований и заключений с использованием облачного хранилища Amazon S3.
-
+Нужно настроить почту для отправки кода авторизации.
+![image](https://github.com/user-attachments/assets/72e8052f-9baa-4aa1-8b01-12c024595db1)
 Бакет создаётся в S3 вручную!
 ## 🚀 Функции
 
@@ -60,3 +65,7 @@ S3Server — это PHP-приложение для загрузки, хране
 ```sh
 git clone https://github.com/MaximxRozhnev/S3Server.git
 cd S3Server
+
+
+![image](https://github.com/user-attachments/assets/a5b66592-422b-4726-8bd3-aaa5f27a5080)
+

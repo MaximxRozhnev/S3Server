@@ -15,12 +15,12 @@ define('S3_DEFAULT_BUCKET', 1); // ID бакета из таблицы modes
 define('S3_ENDPOINT', 'ENDPOINT');
 
 // Настройки почты (SMTP)
-define('SMTP_HOST', 'ssl://smtp.yandex.ru');
-define('SMTP_PORT', 465);
-define('SMTP_USER', 'c3nter911@yandex.ru');
-define('SMTP_PASSWORD', 'jqzlyjrlmpimzhdr');
-define('SMTP_FROM_EMAIL', 'c3nter911@yandex.ru');
-define('SMTP_FROM_NAME', 'S3Server');
+define('SMTP_HOST', 'host');
+define('SMTP_PORT', 0);
+define('SMTP_USER', 'user');
+define('SMTP_PASSWORD', 'pass');
+define('SMTP_FROM_EMAIL', 'email');
+define('SMTP_FROM_NAME', 'name');
 
 // Подключение к MySQL через MySQLi
 function getDatabaseConnection() {

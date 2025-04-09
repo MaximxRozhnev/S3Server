@@ -144,8 +144,6 @@
             .catch(error => showNotification('error', 'Ошибка сброса фильтров!'));
         }
         
-
-    
         // *** [ Загрузка обследований пациента ] ***
             // Функция для создания контекстного меню
             function createContextMenu(examination, isConclusion, x, y) {
@@ -192,7 +190,6 @@
                 });
                 menu.appendChild(downloadItem);
 
-            
                 // Проверяем роли для отображения кнопок удаления
                 if (roleId == 1 || (roleId == 3 && !isConclusion) || (roleId == 2 && isConclusion)) {
                     const deleteItem = document.createElement('li');
@@ -216,18 +213,18 @@
                                     deleteLocally: false, // Убедитесь, что не удаляете локально, если используете S3
                                 }),
                             })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                    if (data.success) {
-                                        examModal.style.display = "none";
-                                        showNotification('success', `${isConclusion ? 'Заключение' : 'Обследование'} успешно удалено.`);
-                                    } else {
-                                        showNotification('error',`Ошибка: ${data.message}`);
-                                    }
-                                })
-                                .catch((error) => {
-                                    alert('Произошла ошибка при удалении.');
-                                });
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.success) {
+                                    examModal.style.display = "none";
+                                    showNotification('success', `${isConclusion ? 'Заключение' : 'Обследование'} успешно удалено.`);
+                                } else {
+                                    showNotification('error',`Ошибка: ${data.message}`);
+                                }
+                            })
+                            .catch((error) => {
+                                alert('Произошла ошибка при удалении.');
+                            });
                         }
                 
                         menu.remove(); // Убираем меню после действия
@@ -246,9 +243,6 @@
                 return menu;
             }
 
-
-
-            
             async function loadExaminations(patientId) {
                 try {
                     const url = '/requests/get_data.php';
@@ -369,7 +363,6 @@
                         <span class="patient-date">(${patient.BirthdayFormatted})</span>
                         <span class="patient-status">[${patient.N}/${patient.M}]</span>
                     `;
-                    
                     // Определяем цвет строки
                     if (patient.M > 0) {
                         if (patient.N == patient.M) {
@@ -378,10 +371,57 @@
                             li.style.backgroundColor = "#f8d7da"; // Красный
                         }
                     }
-        
                     // Добавляем обработчик клика
                     li.addEventListener('click', () => {
                         loadExaminations(patient.ID);
+                        
+                        const deletePatientBtn = document.getElementById('deletePatientBtn');
+
+                        if (deletePatientBtn) {
+                            deletePatientBtn.onclick = async () => {
+                                if (confirm('Вы точно хотите удалить пациента и все его обследования?')) {
+                                    try {
+                                        const folderPath = `${patient.FIO}-${patient.Birthday}/`; // Убедись, что формат совпадает с сохранённым путём
+
+                                        const response = await fetch('/requests/delete_from_s3.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({
+                                                action: 'deletePatient',
+                                                filePath: folderPath,  // Передаем правильный путь для действия
+                                                deleteLocally: false, // Убедитесь, что не удаляете локально, если используете S3
+                                            })
+                                        });
+                                        const result = await response.json();
+
+                                        const response_2 = await fetch('/requests/delete_patient.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ patientId: patient.ID })
+                                        });
+                        
+                                        const result2 = await response_2.json();
+                        
+                                        if (result2.success) {
+                                            examModal.style.display = 'none';
+                                            refreshPatientList();
+                                            showNotification('success', `Пациент удалён.`);
+                                        } else {
+                                            showNotification('error', `Пациент не удалён. ` + result2.error);
+                                        }
+                                    } catch (err) {
+                                        alert('Ошибка при соединении с сервером');
+                                        console.error(err);
+                                    }
+                                }
+                            };
+                        }
+
+                        
                     });
         
                     patientList.appendChild(li);

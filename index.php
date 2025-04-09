@@ -15,6 +15,9 @@
     $showSelectModeButton = false; // Кнопка "Выбрать режим"
     
     
+    # Удаление пациента
+    $deletePatientButton = false;
+    
     switch ($roleID) {
         case 1: // Admin
             $showAdminButton = true;
@@ -22,6 +25,7 @@
             $showAddExaminationButton = true;
             $showAddConclusionButton = true;
             $showSelectModeButton = true;
+            $deletePatientButton = true;
             break;
         case 2: // Vrach
             $showAddConclusionButton = true;
@@ -31,6 +35,7 @@
             $showAddPatientButton = true;
             $showAddExaminationButton = true;
             $showSelectModeButton = true;
+            $deletePatientButton = true;
             break;
         case 4: // Reg
             $showAddPatientButton = false;
@@ -217,12 +222,18 @@
     <div class="modal-content">
         <span class="close" id="closeExamModal">&times;</span>
         <h3>Обследования пациента</h3>
+        <?php 
+            if($deletePatientButton) {
+                echo '<button id="deletePatientBtn" class="patient-delete-btn" style="float: right; margin-top: -30px;">Удалить пациента</button>';
+            }
+        ?>
         <hr></hr>
         <ul id="examinationList">
             <!-- Список обследований будет динамически обновляться -->
         </ul>
     </div>
 </div>
+
 
 <!-- Модальное окно для добавления пациента[1/2] Данные пациента -->
 <div id="patientModal" class="modal">

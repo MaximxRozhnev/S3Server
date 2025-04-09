@@ -164,8 +164,6 @@ body {
     font-weight: bold;
 }
 
-
-
 /* Модальные окна */
 .modal {
     display: none; /* Скрыто по умолчанию */
@@ -463,4 +461,16 @@ p {
     color: #333;
     font-weight: bold;
 }
+
+.patient-delete-btn {
+    background-color: #ff4d4f !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 5px 10px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+}
+
+
 

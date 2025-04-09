@@ -58,6 +58,38 @@ try {
             ]);
             echo json_encode(['success' => true, 'message' => 'Файл успешно удален из S3.']);
         }
+    } elseif ($action === 'deletePatient') {
+    
+        $s3 = getS3Client();
+        $bucket = $_SESSION['bucket_modes'][$_SESSION['bucket']];
+    
+        // Получаем список объектов в префиксе
+        $objects = $s3->listObjectsV2([
+            'Bucket' => $bucket,
+            'Prefix' => $filePath,
+        ]);
+    
+        if (empty($objects['Contents'])) {
+            echo json_encode(['success' => false, 'error' => 'Нет файлов для удаления']);
+            exit;
+        }
+    
+        // Готовим список ключей для удаления
+        $keysToDelete = [];
+        foreach ($objects['Contents'] as $object) {
+            $keysToDelete[] = ['Key' => $object['Key']];
+        }
+    
+        // Удаляем
+        $result = $s3->deleteObjects([
+            'Bucket' => $bucket,
+            'Delete' => [
+                'Objects' => $keysToDelete,
+                'Quiet' => false,
+            ],
+        ]);
+    
+        echo json_encode(['success' => true, 'message' => $filePath . '/']);
     } elseif ($action === 'deleteConclusion') {
         // Удаляем файл заключения и запись в таблице results
         if (!$examinationId) {
